@@ -1,4 +1,3 @@
-#asdfdf
 extends Node2D
 
 class_name State
