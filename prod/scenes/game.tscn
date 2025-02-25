@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://namvlue07kuq"]
+
+[ext_resource type="PackedScene" uid="uid://fmpd1cfre6d8" path="res://scenes/prototype_room_1.tscn" id="1_5cw4n"]
+[ext_resource type="Script" path="res://scripts/Systems/gameManager.gd" id="1_ra83r"]
+[ext_resource type="PackedScene" uid="uid://dyv7hch4hxym0" path="res://scenes/player.tscn" id="2_u6lre"]
+[ext_resource type="PackedScene" uid="uid://mgmc1b6dxsbf" path="res://scenes/debug.tscn" id="4_fg3y5"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ra83r")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugUI" parent="CanvasLayer" instance=ExtResource("4_fg3y5")]
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 1161.0
+offset_bottom = 653.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Prototype Room 1" parent="." instance=ExtResource("1_5cw4n")]
+
+[node name="Player" parent="." instance=ExtResource("2_u6lre")]
+position = Vector2(797, -10)
+jumpForce = 175.0
+maxJumpTime = 0.1
+jumpInputBufferTime = 0.3
+coyoteTime = 0.4
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -37)
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0

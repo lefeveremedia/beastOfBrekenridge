@@ -1,0 +1,109 @@
+[gd_scene load_steps=16 format=3 uid="uid://dyv7hch4hxym0"]
+
+[ext_resource type="Script" path="res://scripts/Player Behaviors/player.gd" id="1_d2ipx"]
+[ext_resource type="Script" path="res://scripts/Player Behaviors/idle.gd" id="2_2lfja"]
+[ext_resource type="Texture2D" uid="uid://q11bf6f7k3rc" path="res://assets/Characters/Sprites/Richard-Prototyp-Idle-Frame-1.png" id="2_e68xc"]
+[ext_resource type="Script" path="res://scripts/Player Behaviors/move.gd" id="3_oq882"]
+[ext_resource type="Texture2D" uid="uid://cq6u8mkixk12f" path="res://assets/Characters/Sprites/Playable Character Cast - Base-1.png" id="3_wakul"]
+[ext_resource type="Script" path="res://scripts/Player Behaviors/jump.gd" id="4_6ic1j"]
+[ext_resource type="Script" path="res://scripts/Systems/stateMachine.gd" id="4_xi304"]
+[ext_resource type="Script" path="res://scripts/Player Behaviors/falling.gd" id="5_2d3w1"]
+[ext_resource type="Script" path="res://scripts/Player Behaviors/wallJump.gd" id="8_tjq66"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ntxs"]
+atlas = ExtResource("2_e68xc")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulqxe"]
+atlas = ExtResource("3_wakul")
+region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsn0d"]
+atlas = ExtResource("3_wakul")
+region = Rect2(16, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlklk"]
+atlas = ExtResource("3_wakul")
+region = Rect2(32, 64, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i4pxp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ntxs")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulqxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsn0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlklk")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkkex"]
+size = Vector2(25.0546, 39.7816)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, -8)
+script = ExtResource("1_d2ipx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_i4pxp")
+animation = &"run"
+autoplay = "Idle"
+frame_progress = 0.649181
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visibility_layer = 2
+position = Vector2(-0.690395, -7)
+scale = Vector2(0.423842, 0.703843)
+shape = SubResource("RectangleShape2D_qkkex")
+
+[node name="stateMachine" type="Node2D" parent="." node_paths=PackedStringArray("startState")]
+script = ExtResource("4_xi304")
+startState = NodePath("idle")
+
+[node name="idle" type="Node2D" parent="stateMachine" node_paths=PackedStringArray("moveState", "jumpState", "wallJumpState", "falingState")]
+script = ExtResource("2_2lfja")
+moveState = NodePath("../move")
+jumpState = NodePath("../jump")
+wallJumpState = NodePath("../wall jump")
+falingState = NodePath("../falling")
+
+[node name="move" type="Node2D" parent="stateMachine"]
+script = ExtResource("3_oq882")
+
+[node name="jump" type="Node2D" parent="stateMachine"]
+script = ExtResource("4_6ic1j")
+
+[node name="falling" type="Node2D" parent="stateMachine"]
+script = ExtResource("5_2d3w1")
+
+[node name="wall jump" type="Node2D" parent="stateMachine" node_paths=PackedStringArray("moveState", "idleState", "jumpState", "falingState")]
+script = ExtResource("8_tjq66")
+moveState = NodePath("../move")
+idleState = NodePath("../idle")
+jumpState = NodePath("../jump")
+falingState = NodePath("../falling")
