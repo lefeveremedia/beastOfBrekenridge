@@ -462,8 +462,7 @@ size = Vector2(37.7499, 39.7816)
 position = Vector2(0, -8)
 script = ExtResource("1_d2ipx")
 jumpInputBufferTime = 0.03
-wallJumpForceY = 1200.0
-wallJumpForceX = 300.0
+wallJumpForceY = 1000.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
