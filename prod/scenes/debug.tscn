@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://mgmc1b6dxsbf"]
+
+[ext_resource type="Script" path="res://scripts/Systems/debugControl.gd" id="1_nwdlw"]
+
+[sub_resource type="SystemFont" id="SystemFont_ad6g8"]
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_y62u5"]
+subpixel_positioning = 0
+
+[node name="DebugUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -4.0
+offset_top = 2.0
+offset_right = 1155.0
+offset_bottom = 652.0
+size_flags_stretch_ratio = 34.6
+script = ExtResource("1_nwdlw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 287.0
+offset_bottom = 161.0
+scale = Vector2(4, 4)
+color = Color(0, 0, 0, 0.8)
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -139.5
+offset_top = 6.0
+offset_right = 139.5
+offset_bottom = 159.0
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("SystemFont_ad6g8")
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -574.5
+offset_top = 2.0
+offset_right = 570.5
+offset_bottom = 19.0
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("SystemFont_y62u5")
+theme_override_font_sizes/font_size = 32
+text = "Debug:"
+horizontal_alignment = 1
+autowrap_mode = 2
