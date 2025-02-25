@@ -21,6 +21,7 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Player" parent="." instance=ExtResource("2_u6lre")]
 position = Vector2(797, -10)
+speed = 120.0
 jumpForce = 175.0
 maxJumpTime = 0.1
 jumpInputBufferTime = 0.3
